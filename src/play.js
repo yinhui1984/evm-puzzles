@@ -90,6 +90,8 @@ function printCode(code) {
   code = code.toUpperCase();
 
   console.log("Bytecode: %s\n", code);
+  const evmCodesUrl = `https://www.evm.codes/playground?codeType=Bytecode&code='${code}'_`;
+  console.log("Run it in evm.codes: %s \n", evmCodesUrl);
 
   let i = 0;
 
