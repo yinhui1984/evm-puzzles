@@ -88,6 +88,9 @@ async function askTryAgain() {
 
 function printCode(code) {
   code = code.toUpperCase();
+
+  console.log("Bytecode: %s\n", code);
+
   let i = 0;
 
   const positions = [];
