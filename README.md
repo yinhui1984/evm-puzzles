@@ -15,3 +15,9 @@ And the game will start.
 In some puzzles you only need to provide the value that will be sent to the contract, in others the calldata, and in others both values.
 
 You can use [`evm.codes`](https://www.evm.codes/)'s reference and playground to work through this.
+
+
+
+## 答案
+
+答案和题解在`solutions`文件夹下, 没认真尝试之前先别看哦🫣
