@@ -69,29 +69,31 @@ address = keccak256(rlp([sender_address,sender_nonce]))[12:]
 
 其中 新账户的[代码](https://www.evm.codes/about)被设置为执行初始化代码后的[返回数据](https://www.evm.codes/about)。
 
-所以,我们传递的`calldata`应该是这样一串代码: 该代码执行完成后,将返回另外一串代码, 该代码作为新建合约的运行时代码, 并且代码的大小为1.
+所以,我们传递的`calldata`应该是这样一串代码: 它是新建合约的初始化代码, 该代码执行完成后, 将返回另外一串代码, 返回的代码将作为新建合约的运行时代码, 并且运行时代码的大小为1.
 
-代码大小为1, 那假设我们返回的代码就一句: 
+代码大小为1, 那假设我们返回的运行时代码就一句: 
 
 ```
 //STOP的opcode为0
 STOP
 ```
 
-那么返回该`STOP`代码的代码就可以写成:
+那么返回该运行时代码的初始化代码就可以写成:
 
 ```
+//保存0到内存中
 PUSH1 0
 PUSH1 0
 MSTORE
+//将内存中的0进行返回
 PUSH1 1
 PUSH1 0
 RETURN
 ```
 
-将上方的代码翻译成bytecode就是  `0x6200001260005260016000f3`   可以[这里尝试](https://www.evm.codes/playground?fork=merge&callValue=0&unit=Wei&callData=0x6200001260005260016000f3&codeType=Bytecode&code='36~0803736~0~0F03B~114601357FD5B00'~600%01~_)
+将上方的代码翻译成bytecode就是  `600060005260016000f3`   可以[这里尝试](https://www.evm.codes/playground?fork=merge&callValue=0&unit=Wei&callData=0x6200001260005260016000f3&codeType=Mnemonic&code='~~MSTOREyz1y~RETURN'~z0yzPUSH1%20y%5Cn%01yz~_)
 
-由于是返回0, 所以存数据到内存这一步完全可以省略, 而编程
+由于是返回0, 所以存数据到内存这一步完全可以省略, 而变成
 
 ```
 PUSH1 0
